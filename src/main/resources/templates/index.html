@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Facts</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="head">Facts abouts dates</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form th:action="@{/}" th:object="${randomFact}" method="post">
+                <h1>Random Fact</h1>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="input-id">Year</span>
+                    </div>
+                    <input type="text" th:field="*{number}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="input-mark">Fact about</span>
+                    </div>
+                    <input type="text" th:field="*{text}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+
+                <div>
+                    <input type="submit" value="Add fact to DB" class="btn btn-success">
+                    <a th:href="@{/}"> <input type="button" value="Generate new fact" class="btn btn-danger"> </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Fact</th>
+                    <th scope="col">Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fact: ${facts}">
+                    <td th:text="${fact.id}"/>
+                    <td> <a th:text="${fact.number}" />
+                    </td>
+                    <td>
+                        <a th:text="${fact.text}" />
+                    </td>
+                    <td >
+                        <a class="edit" th:href="@{/edit/{factId}(factId=${fact.id})}"><button type="button" class="btn btn-warning">Edit</button></a>
+                        <a class="delete" th:href="@{/delete/{factId}(factId=${fact.id})}"><button type="button" class="btn btn-danger">Delete</button></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
